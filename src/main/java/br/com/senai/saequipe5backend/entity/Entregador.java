@@ -2,6 +2,7 @@ package br.com.senai.saequipe5backend.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +43,7 @@ public class Entregador{
 	@Size(min = 14, max = 14, message = "O CPF deve possuir 14 caracteres")
 	private String cpf;
 	
-	@NotEmpty(message = "a data de nascimento é obrigatória")
+	@NotNull(message = "a data de nascimento é obrigatória")
 	@Column(name = "dt_nascimento")
 	private LocalDate dataDeNascimento;
 	
@@ -52,7 +53,7 @@ public class Entregador{
 	@Pattern(regexp = "([0-9]{2}[\\.][0-9]{3}[\\.][0-9]{3})", message = "O RG deve possuir o formato NN.NNN.NNN")
 	private String rg;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario")
 	@NotNull(message = "O usuário é obrigatório")
 	private Usuario usuario;

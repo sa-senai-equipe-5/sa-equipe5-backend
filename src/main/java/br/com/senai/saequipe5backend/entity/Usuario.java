@@ -2,6 +2,8 @@ package br.com.senai.saequipe5backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,11 +43,12 @@ public class Usuario {
 	@Column(name = "senha")
 	@NotEmpty(message = "A senha não pode ser nula!")
 	@NotBlank(message = "A senha não pode conter espaços!")
-	@Pattern(regexp = "^[A-Za-z0-9_-]*$", message = "A senha deve conter letras e números")
+	@Pattern(regexp = "(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]+)$", message = "A senha deve conter letras e números")
 	@Size(min = 2, max = 10, message = "A senha deve possuir entre 2 e 10 caracteres")
 	private String senha;
 	
 	@NotNull(message = "O perfil não pode ser nulo!")
+	@Enumerated(EnumType.STRING)
 	@Column(name = "perfil")
 	private Perfil perfil;
 

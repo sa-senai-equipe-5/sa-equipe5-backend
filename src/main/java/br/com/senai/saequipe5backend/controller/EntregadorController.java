@@ -1,6 +1,7 @@
 package br.com.senai.saequipe5backend.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.saequipe5backend.entity.Entregador;
 import br.com.senai.saequipe5backend.service.EntregadorService;
 
+@RestController
+@RequestMapping("/entregadores")
 public class EntregadorController {
 
 	@Autowired
@@ -49,7 +54,10 @@ public class EntregadorController {
 	
 	@GetMapping("/nome-completo/{nome-completo}")
 	public ResponseEntity<?> listarPor(@PathVariable(name = "nome-completo") String nomeCompleto) {
-		return ResponseEntity.ok(mapConverter.toJsonList(service.listarPor(nomeCompleto)));
+		System.out.println(nomeCompleto);
+		List<Entregador> lista = service.listarPor(nomeCompleto);
+		System.out.println(lista.size());
+		return ResponseEntity.ok(mapConverter.toJsonList(lista));
 	}
 	
 	@DeleteMapping("/id/{id}")

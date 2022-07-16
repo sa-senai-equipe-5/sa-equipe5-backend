@@ -43,8 +43,8 @@ public class EntregaService {
 		return entregaEncontrada;
 	}
 
-	public List<Entrega> listarPor(@NotEmpty(message = "A descrição não pode ser nula") String descricao) {
-		return repository.listarPor("%" + descricao + "%");
+	public List<Entrega> listarPor(@NotEmpty(message = "A descrição não pode ser nula") String endereco) {
+		return repository.listarPor("%" + endereco + "%");
 	}
 
 	public void excluirPor(@NotNull(message = "O id é obrigatório") Integer id) {

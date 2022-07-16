@@ -25,12 +25,14 @@ public class EntregadorService {
 
 	public Entregador inserir(@Valid @NotNull(message = "O entregador não pode ser nulo!") Entregador novoEntregador) {
 		Preconditions.checkArgument(novoEntregador.getId() == null, "O id deve ser nulo");
-		Entregador entregadorSalva = repository.save(novoEntregador);
-		return entregadorSalva;
+		this.isUnico(novoEntregador);
+		Entregador entregadorSalvo = repository.save(novoEntregador);
+		return entregadorSalvo;
 	}
 
 	public Entregador alterar(@Valid @NotNull(message = "O entregador não pode ser nulo") Entregador entregadorSalvo) {
 		Preconditions.checkArgument(entregadorSalvo.getId() != null, "O id é obrigatório");
+		this.isUnico(entregadorSalvo);
 		Entregador entregadorAtualizado = repository.save(entregadorSalvo);
 		return entregadorAtualizado;
 	}
@@ -49,6 +51,14 @@ public class EntregadorService {
 
 	public void excluirPor(@NotNull(message = "O id é obrigatório") Integer id) {
 		this.repository.deleteById(id);
+	}
+	
+	private void isUnico(Entregador entregador) {
+		List<Entregador> entregadores = repository.findAll();
+		for (Entregador e : entregadores) {			
+			Preconditions.checkArgument(!(entregador.getRg().equals(e.getRg())));
+			Preconditions.checkArgument(!(entregador.getCpf().equals(e.getCpf())));
+		}
 	}
 
 }

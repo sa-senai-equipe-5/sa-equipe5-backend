@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.saequipe5backend.entity.Entrega;
 import br.com.senai.saequipe5backend.service.EntregaService;
 
+@RestController
+@RequestMapping("/entregas")
 public class EntregaController {
 
 	@Autowired
@@ -47,9 +51,9 @@ public class EntregaController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(id)));
 	}
 	
-	@GetMapping("/descricao/{descricao}")
-	public ResponseEntity<?> listarPor(@PathVariable(name = "descricao") String descricao) {
-		return ResponseEntity.ok(mapConverter.toJsonList(service.listarPor(descricao)));
+	@GetMapping("/endereco/{endereco}")
+	public ResponseEntity<?> listarPor(@PathVariable(name = "endereco") String endereco) {
+		return ResponseEntity.ok(mapConverter.toJsonList(service.listarPor(endereco)));
 	}
 	
 	@DeleteMapping("/id/{id}")
