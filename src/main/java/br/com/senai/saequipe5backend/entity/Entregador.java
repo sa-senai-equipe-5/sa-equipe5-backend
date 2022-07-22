@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -45,6 +46,7 @@ public class Entregador{
 	
 	@NotNull(message = "a data de nascimento é obrigatória")
 	@Column(name = "dt_nascimento")
+	@Past(message = "A data de nascimento deve ser anterior à atual.")
 	private LocalDate dataDeNascimento;
 	
 	@NotEmpty(message = "O RG é obrigatório")
@@ -53,7 +55,7 @@ public class Entregador{
 	@Pattern(regexp = "([0-9]{2}[\\.][0-9]{3}[\\.][0-9]{3})", message = "O RG deve possuir o formato NN.NNN.NNN")
 	private String rg;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario")
 	@NotNull(message = "O usuário é obrigatório")
 	private Usuario usuario;

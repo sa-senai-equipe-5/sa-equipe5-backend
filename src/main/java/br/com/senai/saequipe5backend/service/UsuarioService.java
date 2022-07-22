@@ -25,8 +25,8 @@ public class UsuarioService {
 	
 	public Usuario inserir(@Valid @NotNull(message = "O usuario não pode ser nulo!") Usuario novoUsuario) {
 		Preconditions.checkArgument(novoUsuario.getId() == null, "O id deve ser nulo");
-		Usuario usuarioSalva = repository.save(novoUsuario);
-		return usuarioSalva;
+		Usuario usuarioSalvo = repository.save(novoUsuario);
+		return usuarioSalvo;
 	}
 
 	public Usuario alterar(@Valid @NotNull(message = "O usuario não pode ser nulo") Usuario usuarioSalvo) {
@@ -34,11 +34,11 @@ public class UsuarioService {
 		Usuario usuarioAtualizado = repository.save(usuarioSalvo);
 		return usuarioAtualizado;
 	}
-
-	public Usuario buscarPor(@NotNull(message = "O id é obrigatório") Integer id) {
-		Usuario usuarioEncontrado = repository.buscarPor(id);
+	
+	public Usuario buscarPor(@NotNull(message = "O login é obrigatório") String login) {
+		Usuario usuarioEncontrado = repository.buscarPor(login);
 		if (usuarioEncontrado == null) {
-			throw new RegistroNaoEncontradoException("Nenhum usuario encontrado");
+			throw new RegistroNaoEncontradoException("Login ou senha inválidos");
 		}
 		return usuarioEncontrado;
 	}

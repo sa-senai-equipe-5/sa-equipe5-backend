@@ -1,5 +1,6 @@
 package br.com.senai.saequipe5backend.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -25,14 +26,14 @@ public class EntregadorService {
 
 	public Entregador inserir(@Valid @NotNull(message = "O entregador não pode ser nulo!") Entregador novoEntregador) {
 		Preconditions.checkArgument(novoEntregador.getId() == null, "O id deve ser nulo");
-		this.isUnico(novoEntregador);
+		this.isValido(novoEntregador);
 		Entregador entregadorSalvo = repository.save(novoEntregador);
 		return entregadorSalvo;
 	}
 
 	public Entregador alterar(@Valid @NotNull(message = "O entregador não pode ser nulo") Entregador entregadorSalvo) {
 		Preconditions.checkArgument(entregadorSalvo.getId() != null, "O id é obrigatório");
-		this.isUnico(entregadorSalvo);
+		this.isValido(entregadorSalvo);
 		Entregador entregadorAtualizado = repository.save(entregadorSalvo);
 		return entregadorAtualizado;
 	}
@@ -56,9 +57,23 @@ public class EntregadorService {
 	private void isUnico(Entregador entregador) {
 		List<Entregador> entregadores = repository.findAll();
 		for (Entregador e : entregadores) {			
-			Preconditions.checkArgument(!(entregador.getRg().equals(e.getRg())));
-			Preconditions.checkArgument(!(entregador.getCpf().equals(e.getCpf())));
+			if (e.getId() != entregador.getId()) {
+				Preconditions.checkArgument(!(entregador.getRg().equals(e.getRg())), "O RG deve ser único");
+				Preconditions.checkArgument(!(entregador.getCpf().equals(e.getCpf())), "O CPF deve ser único");
+			}
 		}
+	}
+	
+	private void isMaiorDeIdade(Entregador entregador) {
+		LocalDate data = entregador.getDataDeNascimento();
+		LocalDate dataAtual = LocalDate.now();
+		Integer ano = data.getYear();
+		Preconditions.checkArgument(ano < dataAtual.getYear() - 18 || (ano == dataAtual.getYear() - 18 && data.getDayOfYear() <= dataAtual.getDayOfYear()), "O entregador deve ter mais de 18 anos");		
+	}
+	
+	private void isValido(Entregador entregador) {
+		this.isUnico(entregador);
+		this.isMaiorDeIdade(entregador);
 	}
 
 }

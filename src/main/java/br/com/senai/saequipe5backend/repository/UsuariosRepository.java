@@ -15,7 +15,7 @@ public interface UsuariosRepository extends JpaRepository<Usuario, Integer> {
 	@Query(value = "SELECT u FROM Usuario u WHERE Upper(u.nomeCompleto) LIKE Upper(:nome)")
 	public List<Usuario> listarPor(@Param("nome") String nomeCompleto);
 	
-	@Query(value = "SELECT u FROM Usuario u WHERE u.id = :id")
-	public Usuario buscarPor(@Param("id") Integer id);
+	@Query(value = "SELECT u FROM Usuario u WHERE u.login = :login")
+	public Usuario buscarPor(@Param("login") String login);
 	
 }
