@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.senai.saequipe5backend.entity.Entregador;
+import br.com.senai.saequipe5backend.entity.Usuario;
 import br.com.senai.saequipe5backend.service.EntregadorService;
 
 @RestController
@@ -50,6 +51,11 @@ public class EntregadorController {
 	@GetMapping("/id/{id}")
 	public ResponseEntity<?> buscarPor(@PathVariable(name = "id") Integer id) {
 		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(id)));
+	}
+	
+	@GetMapping("/usuario/{usuario}")
+	public ResponseEntity<?> buscarPor(@PathVariable(name = "usuario") Usuario usuario) {
+		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(usuario)));
 	}
 	
 	@GetMapping("/nome-completo/{nome-completo}")

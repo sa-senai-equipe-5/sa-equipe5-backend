@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.google.common.base.Preconditions;
 
 import br.com.senai.saequipe5backend.entity.Entregador;
+import br.com.senai.saequipe5backend.entity.Usuario;
 import br.com.senai.saequipe5backend.exception.RegistroNaoEncontradoException;
 import br.com.senai.saequipe5backend.repository.EntregadoresRepository;
 
@@ -23,7 +24,7 @@ public class EntregadorService {
 
 	@Autowired
 	private EntregadoresRepository repository;
-
+	
 	public Entregador inserir(@Valid @NotNull(message = "O entregador não pode ser nulo!") Entregador novoEntregador) {
 		Preconditions.checkArgument(novoEntregador.getId() == null, "O id deve ser nulo");
 		this.isValido(novoEntregador);
@@ -40,6 +41,14 @@ public class EntregadorService {
 
 	public Entregador buscarPor(@NotNull(message = "O id é obrigatório") Integer id) {
 		Entregador entregadorEncontrado = repository.buscarPor(id);
+		if (entregadorEncontrado == null) {
+			throw new RegistroNaoEncontradoException("Nenhum entregador encontrado");
+		}
+		return entregadorEncontrado;
+	}
+	
+	public Entregador buscarPor(@NotNull(message = "O usuário é obrigatório") Usuario usuario) {
+		Entregador entregadorEncontrado = repository.findByUsuario(usuario);
 		if (entregadorEncontrado == null) {
 			throw new RegistroNaoEncontradoException("Nenhum entregador encontrado");
 		}

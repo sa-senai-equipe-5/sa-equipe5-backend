@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.senai.saequipe5backend.entity.Entregador;
+import br.com.senai.saequipe5backend.entity.Usuario;
 
 @Repository
 public interface EntregadoresRepository extends JpaRepository<Entregador, Integer>{
@@ -17,5 +18,7 @@ public interface EntregadoresRepository extends JpaRepository<Entregador, Intege
 	
 	@Query(value = "SELECT e FROM Entregador e WHERE e.id = :id")
 	public Entregador buscarPor(@Param("id") Integer id);
+	
+	public Entregador findByUsuario(final Usuario usuario);
 	
 }
