@@ -72,4 +72,10 @@ public class EntregadorController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/")
+	public ResponseEntity<?> listarTodos() {
+		List<Entregador> lista = service.listarTodos();
+		return ResponseEntity.ok(mapConverter.toJsonList(lista));
+	}
+	
 }

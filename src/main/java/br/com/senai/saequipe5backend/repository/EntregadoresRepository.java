@@ -21,4 +21,6 @@ public interface EntregadoresRepository extends JpaRepository<Entregador, Intege
 	
 	public Entregador findByUsuario(final Usuario usuario);
 	
+	public List<Entregador> findAllByOrderByIdAsc();
+	
 }

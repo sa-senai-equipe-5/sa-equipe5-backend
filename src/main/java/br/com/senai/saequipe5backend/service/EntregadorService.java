@@ -59,6 +59,10 @@ public class EntregadorService {
 		return repository.listarPor("%" + nomeCompleto + "%");
 	}
 
+	public List<Entregador> listarTodos() {
+		return repository.findAllByOrderByIdAsc();
+	}
+	
 	public void excluirPor(@NotNull(message = "O id é obrigatório") Integer id) {
 		this.repository.deleteById(id);
 	}

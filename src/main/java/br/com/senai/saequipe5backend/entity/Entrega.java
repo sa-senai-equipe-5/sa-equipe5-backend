@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,6 +44,7 @@ public class Entrega {
 	
 	@NotNull(message = "O campo Entregue é obrigatório")
 	@Column(name = "entregue")
+	@Enumerated(EnumType.STRING)
 	private Entregue entregue;
 	
 	@NotEmpty(message = "A descrição é obrigatória!")
