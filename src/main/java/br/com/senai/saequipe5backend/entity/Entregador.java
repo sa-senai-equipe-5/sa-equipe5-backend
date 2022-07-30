@@ -55,7 +55,7 @@ public class Entregador{
 	@Pattern(regexp = "([0-9]{2}[\\.][0-9]{3}[\\.][0-9]{3})", message = "O RG deve possuir o formato NN.NNN.NNN")
 	private String rg;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario")
 	@NotNull(message = "O usuário é obrigatório")
 	private Usuario usuario;

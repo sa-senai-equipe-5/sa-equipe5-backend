@@ -12,9 +12,6 @@ import br.com.senai.saequipe5backend.service.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
-	//@Autowired
-	//private ObjectMapper mapper;
 	
 	@Autowired
 	private MapConverter mapConverter;

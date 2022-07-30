@@ -13,14 +13,16 @@ import br.com.senai.saequipe5backend.entity.Usuario;
 @Repository
 public interface EntregadoresRepository extends JpaRepository<Entregador, Integer>{
 
-	@Query(value = "SELECT e FROM Entregador e WHERE Upper(e.nomeCompleto) LIKE Upper(:nome)")
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE Upper(e.nomeCompleto) LIKE Upper(:nome) ORDER BY e.id ASC")
 	public List<Entregador> listarPor(@Param("nome") String nomeCompleto);
 	
-	@Query(value = "SELECT e FROM Entregador e WHERE e.id = :id")
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE e.id = :id")
 	public Entregador buscarPor(@Param("id") Integer id);
 	
-	public Entregador findByUsuario(final Usuario usuario);
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE e.usuario = :usuario")
+	public Entregador buscarPorUsuario(@Param("usuario") Usuario usuario);
 	
-	public List<Entregador> findAllByOrderByIdAsc();
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario ORDER BY e.id ASC")
+	public List<Entregador> buscarTodos();
 	
 }

@@ -12,10 +12,10 @@ import br.com.senai.saequipe5backend.entity.Entrega;
 @Repository
 public interface EntregasRepository extends JpaRepository<Entrega, Integer> {
 
-	@Query(value = "SELECT e FROM Entrega e WHERE Upper(e.enderecoCompleto) LIKE Upper(:desc)")
+	@Query(value = "SELECT e FROM Entrega e JOIN FETCH e.entregador WHERE Upper(e.enderecoCompleto) LIKE Upper(:desc) ORDER BY e.id ASC")
 	public List<Entrega> listarPor(@Param("desc") String endereco);
 	
-	@Query(value = "SELECT e FROM Entrega e WHERE e.id = :id")
+	@Query(value = "SELECT e FROM Entrega e JOIN FETCH e.entregador WHERE e.id = :id")
 	public Entrega buscarPor(@Param("id") Integer id);
 	
 }

@@ -48,7 +48,7 @@ public class EntregadorService {
 	}
 	
 	public Entregador buscarPor(@NotNull(message = "O usuário é obrigatório") Usuario usuario) {
-		Entregador entregadorEncontrado = repository.findByUsuario(usuario);
+		Entregador entregadorEncontrado = repository.buscarPorUsuario(usuario);
 		if (entregadorEncontrado == null) {
 			throw new RegistroNaoEncontradoException("Nenhum entregador encontrado");
 		}
@@ -60,7 +60,7 @@ public class EntregadorService {
 	}
 
 	public List<Entregador> listarTodos() {
-		return repository.findAllByOrderByIdAsc();
+		return repository.buscarTodos();
 	}
 	
 	public void excluirPor(@NotNull(message = "O id é obrigatório") Integer id) {
