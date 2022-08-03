@@ -48,11 +48,16 @@ public class EntregadorService {
 	}
 	
 	public Entregador buscarPor(@NotNull(message = "O usuário é obrigatório") Usuario usuario) {
-		Entregador entregadorEncontrado = repository.buscarPorUsuario(usuario);
+		Entregador entregadorEncontrado = repository.buscarPor(usuario);
 		if (entregadorEncontrado == null) {
 			throw new RegistroNaoEncontradoException("Nenhum entregador encontrado");
 		}
 		return entregadorEncontrado;
+	}
+	
+	public Entregador buscarPor(@NotNull(message = "O CPF é obrigatório") String cpf) {
+		Entregador entregador = this.repository.buscarPorCpf(cpf);
+		return entregador;
 	}
 
 	public List<Entregador> listarPor(@NotEmpty(message = "O nome não pode ser nulo") String nomeCompleto) {
@@ -68,12 +73,13 @@ public class EntregadorService {
 	}
 	
 	private void isUnico(Entregador entregador) {
-		List<Entregador> entregadores = repository.findAll();
-		for (Entregador e : entregadores) {			
-			if (e.getId() != entregador.getId()) {
-				Preconditions.checkArgument(!(entregador.getRg().equals(e.getRg())), "O RG deve ser único");
-				Preconditions.checkArgument(!(entregador.getCpf().equals(e.getCpf())), "O CPF deve ser único");
-			}
+		Entregador entregadorEncontrado = this.repository.buscarPorCpf(entregador.getCpf());
+		if (entregadorEncontrado != null) {
+		Preconditions.checkArgument(entregadorEncontrado.getId() == entregador.getId(), "O CPF deve ser único");
+		}
+		entregadorEncontrado = this.repository.buscarPorRg(entregador.getRg());
+		if (entregadorEncontrado != null) {
+		Preconditions.checkArgument(entregadorEncontrado.getId() == entregador.getId(), "O RG deve ser único");
 		}
 	}
 	

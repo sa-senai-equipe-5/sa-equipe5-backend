@@ -14,7 +14,7 @@ public class InitApp {
 	}
 	
 	@Bean
-	public Hibernate5Module jsonhibernate5module() {
+	Hibernate5Module jsonhibernate5module() {
 		return new Hibernate5Module();
 	}
 

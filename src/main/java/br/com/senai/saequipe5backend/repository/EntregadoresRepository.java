@@ -20,7 +20,13 @@ public interface EntregadoresRepository extends JpaRepository<Entregador, Intege
 	public Entregador buscarPor(@Param("id") Integer id);
 	
 	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE e.usuario = :usuario")
-	public Entregador buscarPorUsuario(@Param("usuario") Usuario usuario);
+	public Entregador buscarPor(@Param("usuario") Usuario usuario);
+	
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE e.cpf = :cpf")
+	public Entregador buscarPorCpf(@Param("cpf") String cpf);
+	
+	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario WHERE e.rg = :rg")
+	public Entregador buscarPorRg(@Param("rg") String rg);
 	
 	@Query(value = "SELECT e FROM Entregador e JOIN FETCH e.usuario ORDER BY e.id ASC")
 	public List<Entregador> buscarTodos();

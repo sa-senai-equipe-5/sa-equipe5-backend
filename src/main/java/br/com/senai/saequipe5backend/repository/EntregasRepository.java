@@ -18,4 +18,7 @@ public interface EntregasRepository extends JpaRepository<Entrega, Integer> {
 	@Query(value = "SELECT e FROM Entrega e JOIN FETCH e.entregador WHERE e.id = :id")
 	public Entrega buscarPor(@Param("id") Integer id);
 	
+	@Query(value = "SELECT e FROM Entrega e JOIN FETCH e.entregador WHERE e.id = (SELECT MAX(id) FROM Entrega e2)")
+	public Entrega buscarMaisRecente();
+	
 }

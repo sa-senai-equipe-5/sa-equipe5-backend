@@ -51,4 +51,9 @@ public class EntregaService {
 		this.repository.deleteById(id);
 	}
 	
+	public Entrega buscarMaisRecente() {
+		Entrega entregaEncontrada = this.repository.buscarMaisRecente();
+		return entregaEncontrada;
+	}
+	
 }

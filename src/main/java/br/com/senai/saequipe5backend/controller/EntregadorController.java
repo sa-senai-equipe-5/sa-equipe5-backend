@@ -58,6 +58,11 @@ public class EntregadorController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(usuario)));
 	}
 	
+	@GetMapping("/cpf/{cpf}")
+	public ResponseEntity<?> buscarPor(@PathVariable(name = "cpf") String cpf) {
+		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarPor(cpf)));
+	}
+	
 	@GetMapping("/nome-completo/{nome-completo}")
 	public ResponseEntity<?> listarPor(@PathVariable(name = "nome-completo") String nomeCompleto) {
 		System.out.println(nomeCompleto);

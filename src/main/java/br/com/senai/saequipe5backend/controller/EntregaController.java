@@ -56,6 +56,11 @@ public class EntregaController {
 		return ResponseEntity.ok(mapConverter.toJsonList(service.listarPor(endereco)));
 	}
 	
+	@GetMapping("/last")
+	public ResponseEntity<?> buscarMaisRecente() {
+		return ResponseEntity.ok(mapConverter.toJsonMap(service.buscarMaisRecente()));
+	}
+	
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<?> excluirPor(@PathVariable(name = "id") Integer id) {
 		this.service.excluirPor(id);
